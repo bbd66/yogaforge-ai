@@ -1,0 +1,1 @@
+// Deprecated placeholder removed. Use com.myfitpet.pose.PoseModelClient instead.

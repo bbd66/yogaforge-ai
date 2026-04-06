@@ -56,9 +56,6 @@ web_modules/
 # Optional stylelint cache
 .stylelintcache
 
-# OS metadata
-.DS_Store
-
 # Optional REPL history
 .node_repl_history
 
@@ -140,39 +137,3 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-
-# ------------------------------
-# YogaForge AI large artifacts
-# ------------------------------
-
-# Backend build outputs
-backend/backend/springboot-server/target/
-
-# ChatGLM local model weights / local python env / heavy caches
-backend/backend/ChatGLM2-6B/
-backend/backend/ChatGLM2-6B/models/
-backend/backend/ChatGLM2-6B/ptuning/glm310/
-
-# PaddleDetection datasets / checkpoints / outputs
-backend/backend/PaddleDetection/
-backend/backend/PaddleDetection/Yoga-82/
-backend/backend/PaddleDetection/pretrained/
-backend/backend/PaddleDetection/output/
-backend/backend/PaddleDetection/output_inference/
-
-# Nested vendor git metadata (should not be pushed to main repo)
-frontend/.git/
-backend/backend/.git/
-backend/backend/ChatGLM2-6B/.git/
-backend/backend/PaddleDetection/.git/
-
-# Local editor settings
-.vscode/
-backend/backend/.vscode/
-**/.git_backup/
-**/__pycache__/
-*.pyc
-
-# Local archives
-backend.zip
-*.zip

@@ -1,0 +1,235 @@
+{
+  "info": {
+    "_postman_id": "b7d9a0f0-0000-0000-0000-myfitpet-collection",
+    "name": "MyFitPet Backend Flow",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/register",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "register"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test1@example.com\",\n  \"username\": \"test1\",\n  \"password\": \"123456\",\n  \"avatarUrl\": null\n}"
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 200) {",
+              "  const data = pm.response.json();",
+              "  if (data.token) {",
+              "    pm.environment.set(\"token\", data.token);",
+              "  }",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "login"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test1@example.com\",\n  \"password\": \"123456\"\n}"
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 200) {",
+              "  const data = pm.response.json();",
+              "  if (data.token) {",
+              "    pm.environment.set(\"token\", data.token);",
+              "  }",
+              "}",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pets - Get My Pet (/api/pets/me)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/pets/me",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "pets", "me"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 200) {",
+              "  const data = pm.response.json();",
+              "  if (data.id) {",
+              "    pm.environment.set(\"petId\", String(data.id));",
+              "  }",
+              "}",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Yoga - Start Session",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/yoga/session/start",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "yoga", "session", "start"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"expectedPose\": \"warrior_ii\"\n}"
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 200) {",
+              "  const data = pm.response.json();",
+              "  if (data.sessionId) {",
+              "    pm.environment.set(\"sessionId\", String(data.sessionId));",
+              "  }",
+              "}",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Yoga - Frame (mock)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/yoga/session/frame",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "yoga", "session", "frame"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"poseLabel\": \"warrior_ii\",\n  \"qualityScore\": 0.85,\n  \"guidance\": \"很好，保持背部挺直\",\n  \"caloriesIncrement\": 4\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Yoga - Stop Session",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/yoga/session/stop",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "yoga", "session", "stop"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sessionId\": \"{{sessionId}}\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Pets - Get Pet Account (/api/pets/{petId}/account)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/pets/{{petId}}/account",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "pets", "{{petId}}", "account"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [],
+  "variable": []
+}
